@@ -3,14 +3,15 @@
 <JUCERPROJECT id="RrIEZq" name="Proco-Rat" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="ENX0Hu" name="Proco-Rat">
-    <GROUP id="{BEA031F6-FE4D-BAD3-C175-F494F0704B89}" name="Source">
-      <FILE id="Pl4MOk" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="iky3LM" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="aclBsF" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="VovkLj" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    <GROUP id="{23F8A290-14C7-76DA-D11F-8D0596561E03}" name="Source">
+      <FILE id="dSlnlS" name="Distortion.h" compile="0" resource="0" file="../Juce_Dsp/ProCat/Source/Distortion.h"/>
+      <FILE id="fLou5r" name="PluginEditor.cpp" compile="1" resource="0"
+            file="../Juce_Dsp/ProCat/Source/PluginEditor.cpp"/>
+      <FILE id="UcELHB" name="PluginEditor.h" compile="0" resource="0" file="../Juce_Dsp/ProCat/Source/PluginEditor.h"/>
+      <FILE id="ij3L2O" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="../Juce_Dsp/ProCat/Source/PluginProcessor.cpp"/>
+      <FILE id="mWpDpm" name="PluginProcessor.h" compile="0" resource="0"
+            file="../Juce_Dsp/ProCat/Source/PluginProcessor.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

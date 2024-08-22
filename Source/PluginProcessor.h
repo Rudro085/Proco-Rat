@@ -9,16 +9,17 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Distortion.h"
 
 //==============================================================================
 /**
 */
-class ProcoRatAudioProcessor  : public juce::AudioProcessor
+class ProCatAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
-    ProcoRatAudioProcessor();
-    ~ProcoRatAudioProcessor() override;
+    ProCatAudioProcessor();
+    ~ProCatAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -52,8 +53,17 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    Distortion Cat_processor;
+    juce::AudioProcessorValueTreeState& getAPVTS() { return apvts; }
+    bool isBypassed = false;
+    bool isOsEnabled = false;
+    juce::dsp::Oversampling<float> OsProcessor;
+
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ProcoRatAudioProcessor)
+    juce::AudioProcessorValueTreeState apvts;
+        
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ProCatAudioProcessor)
 };
+
