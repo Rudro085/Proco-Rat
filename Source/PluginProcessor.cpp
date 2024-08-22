@@ -1,10 +1,3 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
@@ -19,7 +12,14 @@ ProcoRatAudioProcessor::ProcoRatAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+    apvts(*this, nullptr, "PARAMETERS",
+        {
+            std::make_unique<juce::AudioParameterFloat>("distortion", "Distortion", 0.0f, 1.0f, 0.5f),
+            std::make_unique<juce::AudioParameterFloat>("tone", "Tone", 0.0f, 1.0f, 0.5f),
+            std::make_unique<juce::AudioParameterFloat>("volume", "Volume", 0.0f, 1.0f, 0.5f)
+        }),
+    OsProcessor(2, 1, juce::dsp::Oversampling<float>::filterHalfBandPolyphaseIIR, true, false)
 #endif
 {
 }
@@ -93,8 +93,9 @@ void ProcoRatAudioProcessor::changeProgramName (int index, const juce::String& n
 //==============================================================================
 void ProcoRatAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    Cat_processor.prepare(sampleRate, samplesPerBlock);
+    OsProcessor.initProcessing(samplesPerBlock);
+    OsProcessor.reset();
 }
 
 void ProcoRatAudioProcessor::releaseResources()
@@ -132,27 +133,34 @@ bool ProcoRatAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 void ProcoRatAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
+    auto totalNumInputChannels = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
+    // Parameters collection
+    float distortionValue = *apvts.getRawParameterValue("distortion");
+    float toneValue = *apvts.getRawParameterValue("tone");
+    float volumeValue = *apvts.getRawParameterValue("volume");
+    Cat_processor.setParam(distortionValue, toneValue, volumeValue, isOsEnabled);
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+    juce::dsp::AudioBlock<float> block(buffer);
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    if (isBypassed == false) {
+        if (isOsEnabled == false)
+            Cat_processor.process(block);
+        else {
+            juce::dsp::AudioBlock<float> osBlock = OsProcessor.processSamplesUp(block);
+            Cat_processor.process(osBlock);
+            OsProcessor.processSamplesDown(block);
+
+        }
+    }
+
+
+    for (int channel = 0; channel < block.getNumChannels(); ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
+        auto* channelData = block.getChannelPointer(channel);
+        for (int sample = 0;sample < block.getNumSamples();++sample) {
+            channelData[sample] = block.getSample(channel, sample);
+        }
 
         // ..do something to the data...
     }

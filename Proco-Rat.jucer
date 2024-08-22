@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="RrIEZq" name="Proco-Rat" projectType="audioplug" useAppConfig="0"
+<JUCERPROJECT id="E8GmDK" name="Proco-Rat" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
-  <MAINGROUP id="ENX0Hu" name="Proco-Rat">
-    <GROUP id="{23F8A290-14C7-76DA-D11F-8D0596561E03}" name="Source">
-      <FILE id="dSlnlS" name="Distortion.h" compile="0" resource="0" file="../Juce_Dsp/ProCat/Source/Distortion.h"/>
-      <FILE id="fLou5r" name="PluginEditor.cpp" compile="1" resource="0"
-            file="../Juce_Dsp/ProCat/Source/PluginEditor.cpp"/>
-      <FILE id="UcELHB" name="PluginEditor.h" compile="0" resource="0" file="../Juce_Dsp/ProCat/Source/PluginEditor.h"/>
-      <FILE id="ij3L2O" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="../Juce_Dsp/ProCat/Source/PluginProcessor.cpp"/>
-      <FILE id="mWpDpm" name="PluginProcessor.h" compile="0" resource="0"
-            file="../Juce_Dsp/ProCat/Source/PluginProcessor.h"/>
+  <MAINGROUP id="lMtFk2" name="Proco-Rat">
+    <GROUP id="{5AC91392-B2FF-D2F7-4585-28B4C403E024}" name="Source">
+      <FILE id="GHPqDi" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="iALpha" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="CcuMKF" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="j3hQ95" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
+    <FILE id="QnKP92" name="Distortion.cpp" compile="1" resource="0" file="Source/Distortion.cpp"/>
+    <FILE id="p2oHAN" name="Distortion.h" compile="0" resource="0" file="Source/Distortion.h"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -38,19 +39,19 @@
         <CONFIGURATION isDebug="0" name="Release" targetName="Proco-Rat"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_dsp" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../Juce_Dsp/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../Juce_Dsp/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../Juce_Dsp/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
   </EXPORTFORMATS>

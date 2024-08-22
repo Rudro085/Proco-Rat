@@ -14,8 +14,8 @@
 class Distortion {
 public:
     Distortion();
-    void prepare(double SampleRate,int SamplePerBlock);
-    void setParam(float dist, float tone, float volume,bool osEnabled);
+    void prepare(double SampleRate, int SamplePerBlock);
+    void setParam(float dist, float tone, float volume, bool osEnabled);
     void process(juce::dsp::AudioBlock<float>& block);
 
 
@@ -45,14 +45,14 @@ private:
     float R8 = 1000000.;
 
     float Vref = 4.5;
-    float Ids = 2.52*std::pow(10. ,-9.);
-    float Vt =26. / 1000.;
+    float Ids = 2.52 * std::pow(10., -9.);
+    float Vt = 26. / 1000.;
 
     float Volume = 1.;
     float gc2, gc1, gr2, gc5, gc6, gc4, grd, gc9, gc7, gr8, gc8;
-    float V4,gd,Id,Ideq,x,y;
+    float V4, gd, Id, Ideq, x, y;
     float V2_prev, Vc1_prev, ic1_prev, V3_prev, Vc5_prev, ic5_prev, Vc6_prev, ic6_prev, V3_diff_prev, V4_prev, Vc9_prev, Vtone_prev, ic9_prev, Vc7_prev, ic7_prev, Vout_prev;
     float maxVoltage = 1.0; // for V4
-   
+
 
 };
