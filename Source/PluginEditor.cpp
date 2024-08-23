@@ -34,6 +34,10 @@ ProcoRatAudioProcessorEditor::ProcoRatAudioProcessorEditor (ProcoRatAudioProcess
     volumeLabel.attachToComponent(&volumeSlider, false);
     addAndMakeVisible(volumeLabel);
 
+    addAndMakeVisible(ilevelL);
+    addAndMakeVisible(ilevelR);
+    addAndMakeVisible(olevel);
+
     //oversampleButton.setButtonText("Enable Oversampling");
     //oversampleButton.onClick = [this] { buttonClicked(&oversampleButton); };
     //addAndMakeVisible(oversampleButton);
@@ -42,10 +46,13 @@ ProcoRatAudioProcessorEditor::ProcoRatAudioProcessorEditor (ProcoRatAudioProcess
     distortionAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(audioProcessor.getAPVTS(), "distortion", distortionSlider));
     toneAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(audioProcessor.getAPVTS(), "tone", toneSlider));
     volumeAttachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(audioProcessor.getAPVTS(), "volume", volumeSlider));
+
+    startTimerHz(24);
 }
 
 ProcoRatAudioProcessorEditor::~ProcoRatAudioProcessorEditor()
 {
+    stopTimer();
 }
 
 //==============================================================================
@@ -54,10 +61,21 @@ void ProcoRatAudioProcessorEditor::paint (juce::Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 }
+void ProcoRatAudioProcessorEditor::timerCallback() {
+    ilevelL.setLevel(audioProcessor.getLevel(0));
+    ilevelL.repaint();
+    ilevelR.setLevel(audioProcessor.getLevel(1));
+    ilevelR.repaint();
+    olevel.setLevel(audioProcessor.getLevel(2));
+    olevel.repaint();
+}
 
 void ProcoRatAudioProcessorEditor::resized()
 {
     distortionSlider.setBounds(50, 100, 100, 100);
     toneSlider.setBounds(150, 100, 100, 100);
     volumeSlider.setBounds(250, 100, 100, 100);
+    ilevelL.setBounds(5, 10 , 5 ,300-20);
+    ilevelR.setBounds(12, 10, 5, 300 - 20);
+    olevel.setBounds(400-10, 10, 5, 300 - 20);
 }

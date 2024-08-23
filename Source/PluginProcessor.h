@@ -58,9 +58,11 @@ public:
     bool isBypassed = false;
     bool isOsEnabled = false;
     juce::dsp::Oversampling<float> OsProcessor;
+    float getLevel(int channel);
 
 private:
     //==============================================================================
+    juce::LinearSmoothedValue<float> ilevelL, ilevelR, olevel;
     juce::AudioProcessorValueTreeState apvts;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ProcoRatAudioProcessor)
 };

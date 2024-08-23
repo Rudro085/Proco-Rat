@@ -3,16 +3,18 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "levelMeter.h"
 
 //==============================================================================
 /**
 */
-class ProcoRatAudioProcessorEditor  : public juce::AudioProcessorEditor
+class ProcoRatAudioProcessorEditor  : public juce::AudioProcessorEditor,juce::Timer
 {
 public:
     ProcoRatAudioProcessorEditor (ProcoRatAudioProcessor&);
     ~ProcoRatAudioProcessorEditor() override;
 
+    void timerCallback() override;
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
@@ -31,7 +33,7 @@ private:
     //juce::TextButton oversampleButton;
 
     //void buttonClicked(juce::Button* button) override;
-
+    Gui::levelMeter ilevelL, ilevelR, olevel;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> distortionAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> toneAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;

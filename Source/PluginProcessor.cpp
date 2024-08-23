@@ -96,6 +96,14 @@ void ProcoRatAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     Cat_processor.prepare(sampleRate, samplesPerBlock);
     OsProcessor.initProcessing(samplesPerBlock);
     OsProcessor.reset();
+    ilevelL.reset(sampleRate, 0.5);
+    ilevelR.reset(sampleRate, 0.5);
+    olevel.reset(sampleRate, 0.5);
+
+    ilevelL.setCurrentAndTargetValue(-100.f);
+    ilevelR.setCurrentAndTargetValue(-100.f);
+    olevel.setCurrentAndTargetValue(-100.f);
+
 }
 
 void ProcoRatAudioProcessor::releaseResources()
@@ -140,6 +148,22 @@ void ProcoRatAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     float toneValue = *apvts.getRawParameterValue("tone");
     float volumeValue = *apvts.getRawParameterValue("volume");
     Cat_processor.setParam(distortionValue, toneValue, volumeValue, isOsEnabled);
+    ilevelL.skip(buffer.getNumSamples());
+    ilevelR.skip(buffer.getNumSamples());
+    olevel.skip(buffer.getNumSamples());
+    {
+        float value  = juce::Decibels::gainToDecibels(buffer.getRMSLevel(0, 0, buffer.getNumSamples()));
+        if (value < ilevelL.getCurrentValue()) ilevelL.setTargetValue(value);
+        else ilevelL.setCurrentAndTargetValue(value);
+        value = juce::Decibels::gainToDecibels(buffer.getRMSLevel(1, 0, buffer.getNumSamples()));
+        if (value < ilevelR.getCurrentValue()) ilevelR.setTargetValue(value);
+        else ilevelR.setCurrentAndTargetValue(value);
+            
+    }
+  
+
+
+
 
     juce::dsp::AudioBlock<float> block(buffer);
 
@@ -154,15 +178,19 @@ void ProcoRatAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
         }
     }
 
-
+    
     for (int channel = 0; channel < block.getNumChannels(); ++channel)
     {
         auto* channelData = block.getChannelPointer(channel);
         for (int sample = 0;sample < block.getNumSamples();++sample) {
             channelData[sample] = block.getSample(channel, sample);
         }
+    }
 
-        // ..do something to the data...
+    {
+        float value = juce::Decibels::gainToDecibels(buffer.getRMSLevel(0, 0, buffer.getNumSamples()));
+        if (value < olevel.getCurrentValue()) olevel.setTargetValue(value);
+        else olevel.setCurrentAndTargetValue(value);
     }
 }
 
@@ -196,4 +224,9 @@ void ProcoRatAudioProcessor::setStateInformation (const void* data, int sizeInBy
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new ProcoRatAudioProcessor();
+}
+float ProcoRatAudioProcessor::getLevel(int channel) {
+    if (channel == 0) return ilevelL.getCurrentValue();
+    else if (channel == 1) return ilevelR.getCurrentValue();
+    else return olevel.getCurrentValue();
 }
