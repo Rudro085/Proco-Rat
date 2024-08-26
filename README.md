@@ -2,7 +2,7 @@
 
 An emulation of Pro Co Rat distortion pedal using nodal analysis. 
 
-Download Windows vst3 files here: [https://github.com/Rudro085/Proco-Rat/releases/tag/v0.1.0](https://github.com/Rudro085/Proco-Rat/releases/tag/v1.0.0)
+Download Windows vst3 files here: [https://github.com/Rudro085/Proco-Rat/releases/tag/v1.0.0](https://github.com/Rudro085/Proco-Rat/releases/tag/v1.0.0)
 
 ![Plugin UI Screenshot](images/Screenshot.png)
 
