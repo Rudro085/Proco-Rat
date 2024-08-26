@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="E8GmDK" name="Proco-Rat" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="RudroHasanDSP">
   <MAINGROUP id="lMtFk2" name="Proco-Rat">
     <GROUP id="{5AC91392-B2FF-D2F7-4585-28B4C403E024}" name="Source">
       <FILE id="GHPqDi" name="PluginProcessor.cpp" compile="1" resource="0"

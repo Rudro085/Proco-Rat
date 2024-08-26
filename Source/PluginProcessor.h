@@ -56,7 +56,7 @@ public:
     Distortion Cat_processor;
     juce::AudioProcessorValueTreeState& getAPVTS() { return apvts; }
     bool isBypassed = false;
-    bool isOsEnabled = false;
+    bool isOsEnabled = true;
     juce::dsp::Oversampling<float> OsProcessor;
     float getLevel(int channel);
 

@@ -19,7 +19,7 @@ ProcoRatAudioProcessor::ProcoRatAudioProcessor()
             std::make_unique<juce::AudioParameterFloat>("tone", "Tone", 0.0f, 1.0f, 0.5f),
             std::make_unique<juce::AudioParameterFloat>("volume", "Volume", 0.0f, 1.0f, 0.5f)
         }),
-    OsProcessor(2, 2, juce::dsp::Oversampling<float>::filterHalfBandPolyphaseIIR, true, false)
+    OsProcessor(2, 1, juce::dsp::Oversampling<float>::filterHalfBandPolyphaseIIR, true, false)
 #endif
 {
 }

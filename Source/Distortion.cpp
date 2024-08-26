@@ -17,7 +17,7 @@ Distortion::Distortion() {
 
 void Distortion::setParam(float dist, float tone, float volume, bool osEnabled) {
     if (osEnabled) {
-        T = 1. / (4. * sampleRate);
+        T = 1. / (2. * sampleRate);
     }
     Rd = std::powf(10., 2. * dist - 2.) * 100000.;
     Rt = 1500. + std::powf(10., 1. * tone - 1) * 100000.;
