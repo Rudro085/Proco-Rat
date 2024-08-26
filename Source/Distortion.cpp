@@ -17,10 +17,10 @@ Distortion::Distortion() {
 
 void Distortion::setParam(float dist, float tone, float volume, bool osEnabled) {
     if (osEnabled) {
-        T = 1. / (2. * sampleRate);
+        T = 1. / (4. * sampleRate);
     }
-    Rd = std::powf(10., 4. * dist - 4.) * 100000.;
-    Rt = 1500. + std::powf(10., 2. * tone - 2) * 100000.;
+    Rd = std::powf(10., 2. * dist - 2.) * 100000.;
+    Rt = 1500. + std::powf(10., 1. * tone - 1) * 100000.;
     Volume = volume;
     //Constants Calculation
     gc2 = C2 / T;
@@ -89,7 +89,7 @@ float Distortion::solve(float Vin) {
     int j = 0;
 
     //Newton-Rapson loop
-    while (j <= 10) {
+    while (j <= 60) {
         j++;
         float Vd = Rt * (Vout * gr8 + gc8 * (Vc9_prev + Vout - Vtone_prev + gc9 * (Vout * gr8 + ic9_prev))) + Vc9_prev + Vout + gc9 * (Vout * gr8 + ic9_prev);
         if (abs(Vd) >= maxVoltage) Vd = maxVoltage * Vd / abs(Vd);
@@ -100,7 +100,7 @@ float Distortion::solve(float Vin) {
         Ideq = Id - gd * Vd;
         Vout = -(Ideq * R6 + Ideq * gc7 + R6 * Rt * Vc9_prev * gc8 * gd - R6 * Rt * Vtone_prev * gc8 * gd + R6 * Rt * gc8 * gc9 * gd * ic9_prev + R6 * Vc9_prev * gc8 + R6 * Vc9_prev * gd - R6 * Vtone_prev * gc8 + R6 * gc8 * gc9 * ic9_prev + R6 * gc9 * gd * ic9_prev + Rt * Vc9_prev * gc7 * gc8 * gd + Rt * Vc9_prev * gc8 - Rt * Vtone_prev * gc7 * gc8 * gd - Rt * Vtone_prev * gc8 + Rt * gc7 * gc8 * gc9 * gd * ic9_prev + Rt * gc8 * gc9 * ic9_prev - V4 + Vc7_prev + Vc9_prev * gc7 * gc8 + Vc9_prev * gc7 * gd + Vc9_prev - Vtone_prev * gc7 * gc8 + gc7 * gc8 * gc9 * ic9_prev + gc7 * gc9 * gd * ic9_prev + gc7 * ic7_prev + gc9 * ic9_prev) / (R6 * Rt * gc8 * gc9 * gd * gr8 + R6 * Rt * gc8 * gd + R6 * Rt * gd * gr8 + R6 * gc8 * gc9 * gr8 + R6 * gc8 + R6 * gc9 * gd * gr8 + R6 * gd + R6 * gr8 + Rt * gc7 * gc8 * gc9 * gd * gr8 + Rt * gc7 * gc8 * gd + Rt * gc7 * gd * gr8 + Rt * gc8 * gc9 * gr8 + Rt * gc8 + Rt * gr8 + gc7 * gc8 * gc9 * gr8 + gc7 * gc8 + gc7 * gc9 * gd * gr8 + gc7 * gd + gc7 * gr8 + gc9 * gr8 + 1.);
         //if (abs(Vout) >= maxVoltage) Vout = maxVoltage * Vout / abs(Vout);
-        if (abs(Vout - Vout_prev) <= 0.00001)  break;
+        if (abs(Vout - Vout_prev) <= 0.000000001)  break;
         else Vout_prev = Vout;
     }
     //clipping section memory element update
