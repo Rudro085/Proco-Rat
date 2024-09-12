@@ -15,6 +15,8 @@
     <FILE id="QnKP92" name="Distortion.cpp" compile="1" resource="0" file="Source/Distortion.cpp"/>
     <FILE id="p2oHAN" name="Distortion.h" compile="0" resource="0" file="Source/Distortion.h"/>
     <FILE id="SXdwtL" name="levelMeter.h" compile="0" resource="0" file="Source/levelMeter.h"/>
+    <FILE id="wUZn4m" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
+    <FILE id="kgwFvV" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

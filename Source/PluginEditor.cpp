@@ -1,6 +1,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "LookAndFeel.h"
 
 //==============================================================================
 ProcoRatAudioProcessorEditor::ProcoRatAudioProcessorEditor (ProcoRatAudioProcessor& p)
@@ -9,16 +10,20 @@ ProcoRatAudioProcessorEditor::ProcoRatAudioProcessorEditor (ProcoRatAudioProcess
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize(400, 300);
-    distortionSlider.setSliderStyle(juce::Slider::Rotary);
-    distortionSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80, 20);
+    distortionSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
+    distortionSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80,10);
+    distortionSlider.setLookAndFeel(RotaryKnobLookAndFeel::get());
     addAndMakeVisible(distortionSlider);
 
-    toneSlider.setSliderStyle(juce::Slider::Rotary);
-    toneSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80, 20);
+    toneSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
+    toneSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80, 10);
+   
+    toneSlider.setLookAndFeel(RotaryKnobLookAndFeel::get());
     addAndMakeVisible(toneSlider);
 
-    volumeSlider.setSliderStyle(juce::Slider::Rotary);
-    volumeSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80, 20);
+    volumeSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
+    volumeSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80,10);
+    volumeSlider.setLookAndFeel(RotaryKnobLookAndFeel::get());
     addAndMakeVisible(volumeSlider);
 
     // Add labels
@@ -72,9 +77,9 @@ void ProcoRatAudioProcessorEditor::timerCallback() {
 
 void ProcoRatAudioProcessorEditor::resized()
 {
-    distortionSlider.setBounds(50, 100, 100, 100);
-    toneSlider.setBounds(150, 100, 100, 100);
-    volumeSlider.setBounds(250, 100, 100, 100);
+    distortionSlider.setBounds(50, 50, 100, 100);
+    toneSlider.setBounds(150, 50, 100, 100);
+    volumeSlider.setBounds(250, 50, 100, 100);
     ilevelL.setBounds(5, 10 , 5 ,300-20);
     ilevelR.setBounds(12, 10, 5, 300 - 20);
     olevel.setBounds(400-10, 10, 5, 300 - 20);
